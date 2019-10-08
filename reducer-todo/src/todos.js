@@ -15,6 +15,7 @@ const initialState = {
 const ON_INPUT_CHANGE = "ON_INPUT_CHANGE";
 const ON_SUBMIT = "ON_SUBMIT";
 const ON_COMPLETE = "ON_COMPLETE";
+const ON_CLEAR_COMPLETED = "ON_CLEAR_COMPLETED";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -36,6 +37,12 @@ function reducer(state, action) {
           return todo;
         } return {...todo, completed: action.payload.complete}
       })};
+    case ON_CLEAR_COMPLETED:
+      let clearTodos = state.todos.filter(item => !item.completed)
+      return {
+          ...state,
+          todos: [...clearTodos]
+      }
     default:
       return state;
   }
@@ -62,6 +69,11 @@ export default function Todos() {
       payload: { id, complete }
     });
   };
+  const onClearCompleted = () => {
+      dispatch({
+          type: ON_CLEAR_COMPLETED
+      })
+  }
 
   return (
     <div>
@@ -81,6 +93,9 @@ export default function Todos() {
             {item.item}
           </p>
         ))}
+        <div>
+            <button onClick={onClearCompleted}>Clear Completed</button>
+        </div>
     </div>
   );
 }
