@@ -77,24 +77,27 @@ export default function Todos() {
 
   return (
     <div>
-      <div>
+      <div className="addtask">
         <input
           name="addTodo"
           onChange={onchangeInput}
           value={state.addTodo}
           type="text"
         />
-        <button onClick={onSubmit}>Add Task</button>
+        <button className="add_task_btn" onClick={onSubmit}>Add Task</button>
       </div>
+      <div className="todos">
         {state.todos.map(item => (
           <p key={item.id}>
-            <button onClick={onComplete(item.id, true)}>Complete</button>
-            <button onClick={onComplete(item.id, false)}>Not Complete</button>
             {item.item}
+            <button className="complete_btn" onClick={onComplete(item.id, true)}>Complete</button>
+            <button className="not_complete_btn" onClick={onComplete(item.id, false)}>Not Complete</button>
+            
           </p>
         ))}
+      </div>
         <div>
-            <button onClick={onClearCompleted}>Clear Completed</button>
+            <button className="clear_cpt_btn" onClick={onClearCompleted}>Clear Completed</button>
         </div>
     </div>
   );
